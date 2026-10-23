@@ -1,0 +1,12 @@
+{
+  "account_usdt": 100,
+  "margin_pct": 4,
+  "leverage": 10,
+  "stop_warn_pct": 5,
+  "stop_skip_pct": 8,
+  "liquidity_switch_on": true,
+  "strategies": {
+    "C1_turtle_macd": true,
+    "A_pullback": true
+  }
+}
