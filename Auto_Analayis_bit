@@ -1,0 +1,4 @@
+	config.json
+state/state.json
+bot/main.py
+.github/workflows/alert.yml
