@@ -1,0 +1,41 @@
+name: 비트코인 알림
+
+on:
+  schedule:
+    - cron: "3 * * * *"   # 매시간 3분 (GitHub 사정으로 몇 분 늦을 수 있음)
+  workflow_dispatch:
+    inputs:
+      summary:
+        description: "시장 방향 요약을 지금 바로 보내기"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: alert
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 알림 검사
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          FORCE_SUMMARY: ${{ github.event_name == 'workflow_dispatch' && inputs.summary && '1' || '0' }}
+        run: python bot/main.py
+      - name: 상태 저장
+        run: |
+          git config user.name "alert-bot"
+          git config user.email "alert-bot@users.noreply.github.com"
+          git add state
+          git diff --cached --quiet || git commit -m "알림 상태 저장"
+          git push
