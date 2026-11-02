@@ -30,5 +30,5 @@
     "pause_after_losses": 3,
     "pause_hours": 24
   },
-  "trade_mode": "off"
+  "trade_mode": "demo"
 }
