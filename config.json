@@ -8,5 +8,27 @@
   "strategies": {
     "C1_turtle_macd": true,
     "A_pullback": true
-  }
+  },
+  "coins": {
+    "BTCUSDT": {
+      "C1": true,
+      "A": true
+    },
+    "ETHUSDT": {
+      "C1": true,
+      "A": false
+    },
+    "SOLUSDT": {
+      "C1": false,
+      "A": true
+    }
+  },
+  "limits": {
+    "max_open_positions": 1,
+    "max_entries_per_day": 2,
+    "daily_loss_usdt": 2,
+    "pause_after_losses": 3,
+    "pause_hours": 24
+  },
+  "trade_mode": "off"
 }
